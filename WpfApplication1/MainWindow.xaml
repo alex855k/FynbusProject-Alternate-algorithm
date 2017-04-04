@@ -1,0 +1,38 @@
+﻿<Window x:Class="GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="563.034" Width="732.298">
+    <Grid Margin="0,0,-0.4,24.6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="223*"/>
+            <RowDefinition Height="224*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="button_ChooseContractorData" Content="Choose..." HorizontalAlignment="Left" Margin="583,76,0,0" VerticalAlignment="Top" Width="75" Click="button_ChooseContractorData_Click"/>
+        <Button x:Name="button_ChooseOfferData" Content="Choose.." HorizontalAlignment="Left" Margin="583,120,0,0" VerticalAlignment="Top" Width="75" Click="button_ChooseOfferData_Click"/>
+        <TextBox x:Name="textBox_BasicData" HorizontalAlignment="Left" Height="18" Margin="49,77,0,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top" Width="529"/>
+        <TextBox x:Name="textBox_OfferData" HorizontalAlignment="Left" Height="18" Margin="49,121,0,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top" Width="529"/>
+        <Label x:Name="label" Content="FynBus Procurement Application&#xD;&#xA;" HorizontalAlignment="Left" Margin="49,14,0,0" VerticalAlignment="Top" FontSize="18" FontWeight="Bold" Height="36" FontFamily="Lato Heavy"/>
+        <Label x:Name="label_ContractorData" Content="Contractor data:" HorizontalAlignment="Left" Margin="49,50,0,0" VerticalAlignment="Top" Height="27"/>
+        <Label x:Name="label_OfferData" Content="Offer data:" HorizontalAlignment="Left" Margin="49,95,0,0" VerticalAlignment="Top" Height="27"/>
+        <ListView x:Name="lstViewWinners" HorizontalAlignment="Left" Height="164" Margin="49,0.4,0,0" VerticalAlignment="Top" Width="609" Grid.Row="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button x:Name="button_Import" Content="Import" HorizontalAlignment="Left" Margin="583,206,0,0" VerticalAlignment="Top" Width="75" Height="18" Grid.RowSpan="2" Click="button_Import_Click"/>
+        <Button x:Name="button_ExportPdf" IsEnabled="False" Content="PDF" HorizontalAlignment="Left" Margin="504,221,0,0" VerticalAlignment="Top" Width="64" Height="22" Grid.Row="1" Click="button_ExportPdf_Click"/>
+        <Button x:Name="button_CalculateWinners" IsEnabled="False" Content="Calculate the winners" HorizontalAlignment="Left" Margin="526,181,0,0" VerticalAlignment="Top" Width="121" Height="22" Grid.Row="1"/>
+        <Label x:Name="label_Routes" Content="Routes:" HorizontalAlignment="Left" Margin="49,139,0,0" VerticalAlignment="Top" Height="27"/>
+        <TextBox x:Name="textBox_Routes" HorizontalAlignment="Left" Height="18" Margin="49,165,0,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top" Width="529"/>
+        <Button x:Name="button_ChooseRoutes" Content="Choose.." HorizontalAlignment="Left" Margin="583,165,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.397,2.771" Click="button_ChooseRoutes_Click"/>
+        <Label x:Name="label_ExportTo" Content="Export to:" HorizontalAlignment="Left" Margin="438,221,0,0" VerticalAlignment="Top" Height="27" Grid.Row="1"/>
+        <Button x:Name="button_ExportCsv" IsEnabled="False" Content="Excel" HorizontalAlignment="Left" Margin="583,221,0,0" VerticalAlignment="Top" Width="64" Height="22" Grid.Row="1" Click="button_ExportCsv_Click"/>
+        <Button x:Name="button_Clear" IsEnabled="False" Content="Clear" HorizontalAlignment="Left" Margin="33,221.4,0,0" VerticalAlignment="Top" Width="64" Height="22" Click="button_Clear_Click" Grid.Row="1"/>
+    </Grid>
+</Window>
