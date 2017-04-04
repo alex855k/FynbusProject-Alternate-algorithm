@@ -28,10 +28,6 @@ namespace FynbusProject
             cw.GetWinners();
             Console.WriteLine("Finished");
 
-           
-
-            cw.PrintWinners();
-
             Console.ReadKey();
         }
     }

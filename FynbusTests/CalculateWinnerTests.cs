@@ -30,7 +30,7 @@ namespace FynbusTests
         //    Offer o2 = new Offer("Jan-1", r, 300, contractor, 10);
         //    r.AddToList(o);
         //    r.AddToList(o2);
-        //    Assert.AreEqual(r.GetDifference(), 50);
+        //    Assert.AreEqual(r.GetTotalContractValueDifference(), 50);
         //}
 
 
@@ -86,7 +86,7 @@ namespace FynbusTests
         //    Assert.AreEqual(r.RouteNumber, calculateWinner.GetRouteInIndex(0).RouteNumber);
 
         //    //assert that right route is first in sorted list
-        //    calculateWinner.SortRoutesByPriceDifference();
+        //    calculateWinner.SortRoutesByTotalContractValueDifference();
         //    Assert.AreEqual(r2.RouteNumber, calculateWinner.GetRouteInIndex(0).RouteNumber);
         //}
 

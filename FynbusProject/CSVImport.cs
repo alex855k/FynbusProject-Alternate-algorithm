@@ -104,7 +104,6 @@ namespace FynbusProject
             foreach (KeyValuePair<int, Route> r in ListOfRoutes)
             {
                 Console.WriteLine(r.Key + " " + r.Value.RouteNumber);
-
             }
 
         }
@@ -114,9 +113,7 @@ namespace FynbusProject
             foreach (KeyValuePair<string, Contractor> r in ListOfContractors)
             {
                 Console.WriteLine(r.Key + " " + r.Value.PersonName);
-
             }
-
         }
 
         private bool ImportContractor(string filepath)

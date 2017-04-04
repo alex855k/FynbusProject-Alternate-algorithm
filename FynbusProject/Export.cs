@@ -75,10 +75,8 @@ namespace FynbusProject
 
             StringBuilder csvContent = PrepareCsvContent();
 
-            
             try
             {
-
                 File.WriteAllText(path, csvContent.ToString());
             }
             catch

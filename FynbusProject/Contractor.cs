@@ -21,11 +21,9 @@ namespace FynbusProject
             {
                 case 2:
                     value = TypeV2;
-                    Console.WriteLine("Amount of V2: " + TypeV2);
                     break;
                 case 3:
                     value = TypeV3;
-                    Console.WriteLine("Amount of V3: " + TypeV3);
                     break;
                 case 5:
                     value = TypeV5;
