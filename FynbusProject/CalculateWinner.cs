@@ -13,7 +13,7 @@ namespace FynbusProject
         {
             // Adding route objects from the import class in the RoutesList
             _routesList = new List<Route>();
-            
+
             foreach (Route r in CSVImport.Instance.ListOfRoutes.Values)
             {
                 AddToRouteList(r);
@@ -59,20 +59,21 @@ namespace FynbusProject
             while (!hasFoundAllWinners)
             {
                 Route currentRoute = _routesList[routeIndex];
-              
-                if (currentRoute.FirstOfferHasVehicleLeft())
+
+                if (currentRoute.FirstOfferHasVehicleLeft() || currentRoute.ListOfOffers.Count <= 0)
                 {
                     SetWinnerForRoute(currentRoute);
                     _resolvedRoutesList.Add(currentRoute);
-                    
+
                 }
                 else
                 {
+                    Console.WriteLine("No vehicles left " + currentRoute.ListOfOffers[0].OfferContractor + " for route: #" + currentRoute.RouteNumber);
                     SortOffersInRoutesByPriceAscending();
                     SortRoutesByTotalContractValueDifference();
                     routeIndex = 0;
                 }
-              
+
                 if (routeIndex == (_routesList.Count() - 1))
                 {
                     hasFoundAllWinners = true;
@@ -88,9 +89,9 @@ namespace FynbusProject
 
         private void SetWinnerForRoute(Route r)
         {
+            r.SetWinningOffer();
             if (r.ListOfOffers.Count > 0)
             {
-                r.SetWinningOffer();
                 r.WinningOffer.OfferContractor.DecrementAmountOfVehicleOfType(r.VehicleType);
             }
         }

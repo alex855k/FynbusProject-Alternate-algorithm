@@ -95,7 +95,7 @@ namespace FynbusTests
             Contractor contractor2 = new Contractor("jan-1", "Datotherguy", "Otherguy", "otherguy@live.com", 1, 2, 2, 1, 4);
 
 
-            Route r = new Route(1, 2);
+            // Route r = new Route(1, 2);
 
             Offer o = new Offer("Jan-1", r, 250, contractor, 1);
             Offer o2 = new Offer("Jan-2", r, 250, contractor2, 0);
@@ -135,8 +135,8 @@ namespace FynbusTests
         [TestMethod]
         public void CanGetAvaliableHoursForRoute()
         {
-           AvaliableHours av = AvaliableHours.Instance;
-           RouteAvaliableHours routeAvHour = new RouteAvaliableHours();
+            AvaliableHours av = AvaliableHours.Instance;
+            RouteAvaliableHours routeAvHour = new RouteAvaliableHours();
 
 
             Assert.AreEqual(4698, av.GetAvaliableHours(1));
@@ -150,8 +150,8 @@ namespace FynbusTests
             Route r = new Route(1, 1);
             Offer o = new Offer("Jan-1", r, 250, contractor, 10);
             AvaliableHours av = AvaliableHours.Instance;
-            Assert.AreEqual(4698*o.Price, o.ContractValue);
+            Assert.AreEqual(4698 * o.Price, o.ContractValue);
         }
-        
+
     }
 }

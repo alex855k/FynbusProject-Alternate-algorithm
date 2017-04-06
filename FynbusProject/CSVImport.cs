@@ -69,26 +69,34 @@ namespace FynbusProject
 
 
             //Check if this are 2 colums for the Route
-            if (data[0].Length == 2)
+            if (data[0].Split(';').Length == 5)
             {
                 isRouteData = true;
             }
 
             if (isRouteData)
             {
+
                 //Go through every row on the CSV file data after the headers (i=1)
                 for (int i = 1; i < data.Length; i++)
                 {
+
                     string row = data[i];
                     //Get every collumn in that row
                     string[] collumns = row.Split(';');
 
                     int routeNr = int.Parse(collumns[0]);
-                    int vehType = int.Parse(collumns[1]);
 
-                    Route newRoute = new Route(routeNr, vehType);
+                    int vehType = int.Parse(collumns[1]);
+                    int hoursWeekdays = int.Parse(collumns[2]);
+                    int hoursWeekends = int.Parse(collumns[3]);
+                    int hoursHolidays = int.Parse(collumns[4]);
+
+                    Route newRoute = new Route(routeNr, vehType, hoursWeekdays, hoursWeekends, hoursHolidays);
                     ListOfRoutes.Add(routeNr, newRoute);
+
                 }
+
             }
 
             if (ListOfRoutes.Count <= 0)
@@ -124,7 +132,7 @@ namespace FynbusProject
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
 
             //Check if this is a header for the Contractor
-            if (data[0].Length == 9)
+            if (data[0].Split(';').Length == 9)
             {
                 isContractorData = true;
             }
@@ -167,9 +175,10 @@ namespace FynbusProject
 
             //Get all the info from the CSV file
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
-
+            Console.WriteLine(filepath);
             //Check if there are 8 columes for the Offers
-            if (data[0].Length == 8)
+            Console.WriteLine("Actual length: " + data[1].Split(';').Length);
+            if (data[0].Split(';').Length == 8)
             {
                 isOfferData = true;
             }
@@ -182,6 +191,7 @@ namespace FynbusProject
                     string row = data[i];
                     //Get every collumn in that row
                     string[] collumns = row.Split(';');
+
 
                     string offerId = collumns[0];
                     int routeNumber = int.Parse(collumns[1]);

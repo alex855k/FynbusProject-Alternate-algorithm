@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FynbusProject
+﻿namespace FynbusProject
 {
     public class Offer
     {
@@ -14,7 +12,7 @@ namespace FynbusProject
         {
             get
             {
-                return AvaliableHours. Instance.GetAvaliableHours(this.Route.RouteNumber) * Price;
+                return Route.AmountOfHoursContractPeriod() * Price;
             }
         }
 
