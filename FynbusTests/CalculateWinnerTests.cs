@@ -152,7 +152,6 @@ namespace FynbusTests
             AvaliableHours av = AvaliableHours.Instance;
             Assert.AreEqual(4698*o.Price, o.ContractValue);
         }
-
-
+        
     }
 }

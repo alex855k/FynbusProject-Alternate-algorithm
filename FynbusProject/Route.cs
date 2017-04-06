@@ -11,6 +11,13 @@ namespace FynbusProject
         public int RoutePriority { get; set; }
         // Will store winning offer once it's been calculated
         public Offer WinningOffer { get; set; }
+        public string CompanyName
+        {
+            get
+            {
+                return ListOfOffers[0].OfferContractor.CompanyName;
+            }
+        }
         public List<Offer> ListOfOffers { get; private set; }
 
         public Route(int routeNb, int vehType)
