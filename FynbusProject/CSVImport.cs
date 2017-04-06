@@ -69,7 +69,7 @@ namespace FynbusProject
 
 
             //Check if this are 2 colums for the Route
-            if (data[0].Length == 2)
+            if (data[0].Split(';').Length == 2)
             {
                 isRouteData = true;
             }
@@ -124,7 +124,7 @@ namespace FynbusProject
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
 
             //Check if this is a header for the Contractor
-            if (data[0].Length == 9)
+            if (data[0].Split(';').Length == 9)
             {
                 isContractorData = true;
             }
@@ -169,7 +169,7 @@ namespace FynbusProject
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
 
             //Check if there are 8 columes for the Offers
-            if (data[0].Length == 8)
+            if (data[0].Split(';').Length == 8)
             {
                 isOfferData = true;
             }
