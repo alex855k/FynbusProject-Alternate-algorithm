@@ -1,17 +1,8 @@
-﻿using System.Collections.Generic;
-using iTextSharp;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.IO;
-using System.Windows;
-using Microsoft.Win32;
-using System;
-using System.Text;
-
-namespace FynbusProject
+﻿namespace FynbusProject
 {
     public class Export
     {
+        /*
         private CalculateWinner cw = null;
         private List<Route> listOfWinners = new List<Route>();
         private int numberOfRows;
@@ -21,7 +12,7 @@ namespace FynbusProject
             numberOfRows = numRows;
         }
 
-        
+
 
         public void ExportToPDF(string path)
         {
@@ -91,10 +82,10 @@ namespace FynbusProject
             StringBuilder csvContent = new StringBuilder();
 
             csvContent.AppendLine("Route number,Company name,Contact person,Contract value");
-            
-            foreach(Route r in listOfWinners)
+
+            foreach (Route r in listOfWinners)
             {
-                if(r.WinningOffer != null)
+                if (r.WinningOffer != null)
                 {
                     string routeNr = r.RouteNumber.ToString();
                     string compName = r.WinningOffer.OfferContractor.CompanyName;
@@ -109,7 +100,7 @@ namespace FynbusProject
 
             return csvContent;
         }
-
+        */
 
     }
 }

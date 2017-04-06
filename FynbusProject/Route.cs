@@ -13,6 +13,8 @@ namespace FynbusProject
         public Offer WinningOffer { get; set; }
         public List<Offer> ListOfOffers { get; private set; }
 
+        private Offer NoWinnerOffer = new Offer("", new Route(1, 0), 0, new Contractor("", "No winner", "", "", 0, 0, 0, 0, 0), 0);
+
         public Route(int routeNb, int vehType)
         {
             RouteNumber = routeNb;
@@ -31,7 +33,7 @@ namespace FynbusProject
             ListOfOffers.Add(o);
         }
 
-    
+
         public void SortListOfOffers()
         {
             List<Offer> sorted = ListOfOffers.FindAll(o => o.HasVehicleOfVehType(this.VehicleType)).OrderBy(o => o.Price).ThenBy(p => p.Priority).ToList();
@@ -41,7 +43,7 @@ namespace FynbusProject
         public double GetTotalContractValueDifference()
         {
             double diff = 0;
-            if (ListOfOffers.Count >= 2 )
+            if (ListOfOffers.Count >= 2)
             {
                 diff = ListOfOffers[0].ContractValue -
                        ListOfOffers[1].ContractValue;
@@ -50,16 +52,16 @@ namespace FynbusProject
             {
                 diff = 10000000000000000000;
             }
-                return diff;
+            return diff;
         }
 
         public override bool Equals(object obj)
-            {
-                Route r = (Route)obj;
-                // Returns true if both RouteNumber and VehicleType of the object we are passing and the this. route object are the same 
-                return (r.RouteNumber == this.RouteNumber &&
-                    r.VehicleType == this.VehicleType);
-            }
+        {
+            Route r = (Route)obj;
+            // Returns true if both RouteNumber and VehicleType of the object we are passing and the this. route object are the same 
+            return (r.RouteNumber == this.RouteNumber &&
+                r.VehicleType == this.VehicleType);
+        }
 
         public override string ToString()
         {
@@ -68,7 +70,15 @@ namespace FynbusProject
 
         public void SetWinningOffer()
         {
-            WinningOffer = ListOfOffers[0];
+            if (ListOfOffers.Count > 0)
+            {
+                WinningOffer = ListOfOffers[0];
+            }
+            else
+            {
+                WinningOffer = NoWinnerOffer;
+            }
+
         }
 
         public bool FirstOfferHasVehicleLeft()
@@ -82,7 +92,7 @@ namespace FynbusProject
             {
                 throw new Exception("Route has no offers left");
             }
-          
+
             return HasVehicle;
         }
     }
