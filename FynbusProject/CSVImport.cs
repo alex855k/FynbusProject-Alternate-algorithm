@@ -103,7 +103,7 @@ namespace FynbusProject
         {
             foreach (KeyValuePair<int, Route> r in ListOfRoutes)
             {
-                Console.WriteLine(r.Key + " " + r.Value.RouteNumber);
+                Console.WriteLine(r.Value.RouteNumber + "" + r.Value.VehicleType);
             }
 
         }
@@ -175,7 +175,7 @@ namespace FynbusProject
                 isOfferData = true;
             }
 
-            if (isOfferData == true)
+            if (isOfferData)
             {
                 //Go through every row on the CSV file data after the headers (i=1)
                 for (int i = 1; i < data.Length; i++)
@@ -197,7 +197,7 @@ namespace FynbusProject
 
                     Offer newOffer = new Offer(offerId, ListOfRoutes[routeNumber], price, contractor, priority);
                     ListOfOffers.Add(newOffer);
-                    ListOfRoutes[1].AddToList(newOffer);
+                    ListOfRoutes[routeNumber].AddToList(newOffer);
                 }
             }
 

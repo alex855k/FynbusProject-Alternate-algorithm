@@ -24,6 +24,7 @@ namespace FynbusProject
                     break;
                 case 3:
                     value = TypeV3;
+                    
                     break;
                 case 5:
                     value = TypeV5;

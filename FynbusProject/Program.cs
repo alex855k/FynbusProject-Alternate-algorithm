@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FynbusProject
 {
@@ -11,9 +12,10 @@ namespace FynbusProject
 
         private void Run()
         {
-            string filepathRoutes = @"C:\fynbus\RouteNumbers.csv";
-            string filepathOffers = @"C:\fynbus\Tilbud_FakeData.csv";
-            string filepathContractors = @"C:\fynbus\Stamoplysninger_FakeData.csv";
+     
+            string filepathRoutes = @"C:\Users\AlexanderH\Desktop\RouteNumbers.csv";
+            string filepathOffers = @"C:\Users\AlexanderH\Desktop\Tilbud_FakeData.csv";
+            string filepathContractors = @"C:\Users\AlexanderH\Desktop\Stamoplysninger_FakeData.csv";
 
 
             CSVImport.Instance.Import(filepathRoutes, fileType.ROUTES);
@@ -25,9 +27,14 @@ namespace FynbusProject
             Route route = CSVImport.Instance.ListOfRoutes[1];
 
             CalculateWinner cw = new CalculateWinner();
-            cw.GetWinners();
-            Console.WriteLine("Finished");
+            
+            List<Route> WinnersList = cw.GetWinners();
 
+            foreach (Route r in WinnersList)
+            {
+                Console.WriteLine(r.RouteNumber + ": " + " Contractor name: " + r.WinningOffer.OfferContractor.CompanyName+ ", Total Contract Value: " + r.WinningOffer.ContractValue + ",\nPrice: " + r.WinningOffer.Price);
+ 
+            }
             Console.ReadKey();
         }
     }
