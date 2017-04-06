@@ -142,8 +142,8 @@ namespace FynbusTests
             RouteAvaliableHours routeAvHour = new RouteAvaliableHours();
 
 
-            Assert.AreEqual(4698, AvaliableHours.GetAvaliableHours(1));
-            Assert.AreEqual(7742, AvaliableHours.GetAvaliableHours(2));
+            Assert.AreEqual(4698, av.GetAvaliableHours(1));
+            Assert.AreEqual(7742, av.GetAvaliableHours(2));
         }
 
         [TestMethod]
