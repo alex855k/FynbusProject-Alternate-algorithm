@@ -68,8 +68,8 @@ namespace FynbusProject
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
 
 
-            //Check if this is a header for the Route
-            if (data[0].Contains("Routenumber;Vogntype"))
+            //Check if this are 2 colums for the Route
+            if (data[0].Length == 2)
             {
                 isRouteData = true;
             }
@@ -124,11 +124,10 @@ namespace FynbusProject
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
 
             //Check if this is a header for the Contractor
-            //if (data[0].Contains("Nummer;Navn;Virksomhedsnavn;BrugerID;Vedståelse v2;Vedståelse v3;Vedståelse v5;Vedståelse v6;Vedståelse v7;"))
-
-            isContractorData = true;
-
-
+            if (data[0].Length == 9)
+            {
+                isContractorData = true;
+            }
             if (isContractorData)
             {
                 //Go through every row on the CSV file data after the headers (i=1)
@@ -169,8 +168,8 @@ namespace FynbusProject
             //Get all the info from the CSV file
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
 
-            //Check if this is a header for the offers
-            if (data[0].Contains("Nummer;Garantivognsnummer;Pris;navn;Virksomhedsnavn;BrugerID;Rutenummer prioritet;Entreprenør prioriter"))
+            //Check if there are 8 columes for the Offers
+            if (data[0].Length == 8)
             {
                 isOfferData = true;
             }
