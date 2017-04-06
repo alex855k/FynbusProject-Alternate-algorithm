@@ -10,12 +10,9 @@ namespace FynbusTests
         private CalculateWinner cw;
         private Route testRoute;
 
-
         [TestInitialize]
         public void Initialize()
         {
-
-
 
         }
         //Unit Tests
@@ -139,11 +136,11 @@ namespace FynbusTests
         public void CanGetAvaliableHoursForRoute()
         {
            AvaliableHours av = AvaliableHours.Instance;
-            RouteAvaliableHours routeAvHour = new RouteAvaliableHours();
+           RouteAvaliableHours routeAvHour = new RouteAvaliableHours();
 
 
-            Assert.AreEqual(4698, AvaliableHours.GetAvaliableHours(1));
-            Assert.AreEqual(7742, AvaliableHours.GetAvaliableHours(2));
+            Assert.AreEqual(4698, av.GetAvaliableHours(1));
+            Assert.AreEqual(7742, av.GetAvaliableHours(2));
         }
 
         [TestMethod]

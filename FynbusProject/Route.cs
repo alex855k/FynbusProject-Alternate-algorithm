@@ -34,7 +34,7 @@ namespace FynbusProject
     
         public void SortListOfOffers()
         {
-            List<Offer> sorted = ListOfOffers.FindAll(o => o.HasVehicleOfVehType(this.RouteNumber)).OrderBy(o => o.Price).ThenBy(p => p.Priority).ToList();
+            List<Offer> sorted = ListOfOffers.FindAll(o => o.HasVehicleOfVehType(this.VehicleType)).OrderBy(o => o.Price).ThenBy(p => p.Priority).ToList();
             ListOfOffers = sorted;
         }
 
@@ -80,8 +80,9 @@ namespace FynbusProject
             }
             else
             {
-                throw new Exception("Error: No offers left.");
+                throw new Exception("Route has no offers left");
             }
+          
             return HasVehicle;
         }
     }

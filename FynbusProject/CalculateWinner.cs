@@ -6,13 +6,14 @@ namespace FynbusProject
 {
     public class CalculateWinner
     {
-        private List<Route> RoutesList;
-        private List<Route> ResolvedRoutesList;
+        private List<Route> _routesList;
+        private List<Route> _resolvedRoutesList = new List<Route>();
 
         public CalculateWinner()
         {
-            RoutesList = new List<Route>();
             // Adding route objects from the import class in the RoutesList
+            _routesList = new List<Route>();
+            
             foreach (Route r in CSVImport.Instance.ListOfRoutes.Values)
             {
                 AddToRouteList(r);
@@ -21,7 +22,7 @@ namespace FynbusProject
 
         public void SortOffersInRoutesByPriceAscending()
         {
-            foreach (Route r in RoutesList)
+            foreach (Route r in _routesList)
             {
                 r.SortListOfOffers();
             }
@@ -29,20 +30,20 @@ namespace FynbusProject
 
         public void AddToRouteList(Route r)
         {
-            RoutesList.Add(r);
+            _routesList.Add(r);
         }
 
         public Route GetRouteInIndex(int index)
         {
             //Getting a route object from an index in the list
-            return RoutesList[index];
+            return _routesList[index];
         }
 
         public void SortRoutesByTotalContractValueDifference()
         {
-            List<Route> sortedRoutesList = RoutesList.FindAll(r => r.HasWinner() == false).OrderByDescending(r => r.GetTotalContractValueDifference()).ThenBy(r => r.RoutePriority).ToList();
+            List<Route> sortedRoutesList = _routesList.FindAll(r => r.HasWinner() == false).OrderByDescending(r => r.GetTotalContractValueDifference()).ThenBy(r => r.RoutePriority).ToList();
             //Updating the RoutesList with sorted values
-            RoutesList = sortedRoutesList;
+            _routesList = sortedRoutesList;
         }
 
         // Main method called for calculating winners
@@ -57,12 +58,13 @@ namespace FynbusProject
             bool hasFoundAllWinners = false;
             while (!hasFoundAllWinners)
             {
-                Route currentRoute = RoutesList[routeIndex];
-               
+                Route currentRoute = _routesList[routeIndex];
+              
                 if (currentRoute.FirstOfferHasVehicleLeft())
                 {
                     SetWinnerForRoute(currentRoute);
-                    ResolvedRoutesList.Add(currentRoute);
+                    _resolvedRoutesList.Add(currentRoute);
+                    
                 }
                 else
                 {
@@ -71,7 +73,7 @@ namespace FynbusProject
                     routeIndex = 0;
                 }
               
-                if (routeIndex == (RoutesList.Count() - 1))
+                if (routeIndex == (_routesList.Count() - 1))
                 {
                     hasFoundAllWinners = true;
                 }
@@ -80,14 +82,14 @@ namespace FynbusProject
                     routeIndex++;
                 }
             }
-            return ResolvedRoutesList;
+
+            return _resolvedRoutesList.OrderBy(r => r.RouteNumber).ToList();
         }
 
         private void SetWinnerForRoute(Route r)
         {
             if (r.ListOfOffers.Count > 0)
             {
-                Console.Write("\n Found winner for route #" + r.RouteNumber + "\n");
                 r.SetWinningOffer();
                 r.WinningOffer.OfferContractor.DecrementAmountOfVehicleOfType(r.VehicleType);
             }
