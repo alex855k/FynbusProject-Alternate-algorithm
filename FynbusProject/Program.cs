@@ -12,10 +12,16 @@ namespace FynbusProject
 
         private void Run()
         {
+            Console.WriteLine("Procurement Application");
+            TestImportAndCalculateWinner();
+            Console.ReadKey();
+        }
 
-            string filepathRoutes = @"C:\Users\AlexanderHvidt\Desktop\RouteNumbers.csv";
-            string filepathOffers = @"C:\Users\AlexanderHvidt\Desktop\offers2.csv";
-            string filepathContractors = @"C:\Users\AlexanderHvidt\Desktop\contractors2.csv";
+        private void TestImportAndCalculateWinner()
+        {
+            string filepathRoutes = @"C:\Users\AlexanderH\Desktop\RouteNumbers.csv";
+            string filepathOffers = @"C:\Users\AlexanderH\Desktop\offers2.csv";
+            string filepathContractors = @"C:\Users\AlexanderH\Desktop\contractors2.csv";
 
 
             CSVImport.Instance.Import(filepathRoutes, fileType.ROUTES);
@@ -30,7 +36,8 @@ namespace FynbusProject
             CalculateWinner cw = new CalculateWinner();
 
             Console.WriteLine(CSVImport.Instance.ListOfOffers.Count);
-
+            cw.CalculateWinners();
+            cw.CalculateWinners();
             List<Route> WinnersList = cw.GetWinners();
             //Console.WriteLine(WinnersList.Count);
 
@@ -40,9 +47,6 @@ namespace FynbusProject
                 Console.WriteLine(r.RouteNumber + ": " + " Company name: " + r.WinningOffer.OfferContractor.CompanyName + ", Total Contract Value: " + r.WinningOffer.ContractValue + ",\nPrice: " + r.WinningOffer.Price);
 
             }
-
-
-            Console.ReadKey();
         }
     }
 }

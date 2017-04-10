@@ -13,6 +13,9 @@ namespace FynbusProject
 {
     public class CSVImport
     {
+        private string _filePathRoutes;
+        private string _filePathContractors;
+        private string _filePathOffers;
         public List<Offer> ListOfOffers
         { get; private set; }
         public Dictionary<string, Contractor> ListOfContractors { get; private set; }
@@ -25,6 +28,14 @@ namespace FynbusProject
             ListOfOffers = new List<Offer>();
             ListOfContractors = new Dictionary<string, Contractor>();
             ListOfRoutes = new Dictionary<int, Route>();
+        }
+
+        public void ReimportObjects()
+        {
+            ClearData();
+            Import(_filePathRoutes, fileType.ROUTES);
+            Import(_filePathContractors, fileType.CONTRACTORS);
+            Import(_filePathOffers, fileType.OFFERS);
         }
 
         public static CSVImport Instance
@@ -47,13 +58,22 @@ namespace FynbusProject
             switch (ft)
             {
                 case fileType.OFFERS:
-                    importSucessful = ImportOffer(filepath);
+                    if (importSucessful = ImportOffer(filepath))
+                    {
+                        _filePathOffers = filepath;
+                    }
                     break;
                 case fileType.CONTRACTORS:
-                    importSucessful = ImportContractor(filepath);
+                    if (importSucessful = ImportContractor(filepath))
+                    {
+                        _filePathContractors = filepath;
+                    }
                     break;
                 case fileType.ROUTES:
-                    importSucessful = ImportRoute(filepath);
+                    if (importSucessful = ImportRoute(filepath))
+                    {
+                        _filePathRoutes = filepath;
+                    }
                     break;
                 default: throw new Exception("File Type doesn't exist!");
             }
@@ -175,9 +195,8 @@ namespace FynbusProject
 
             //Get all the info from the CSV file
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
-            Console.WriteLine(filepath);
+          
             //Check if there are 8 columes for the Offers
-            Console.WriteLine("Actual length: " + data[1].Split(';').Length);
             if (data[0].Split(';').Length == 8)
             {
                 isOfferData = true;

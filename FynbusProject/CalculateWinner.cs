@@ -7,17 +7,19 @@ namespace FynbusProject
     public class CalculateWinner
     {
         private List<Route> _routesList;
-        private List<Route> _resolvedRoutesList = new List<Route>();
+        private List<Route> _resolvedRoutesList;
 
         public CalculateWinner()
         {
             // Adding route objects from the import class in the RoutesList
             _routesList = new List<Route>();
+            _resolvedRoutesList = new List<Route>();
+        }
 
-            foreach (Route r in CSVImport.Instance.ListOfRoutes.Values)
-            {
-                AddToRouteList(r);
-            }
+        public void LoadRoutes()
+        {
+            if (_routesList != null) CSVImport.Instance.ReimportObjects();
+            _routesList = CSVImport.Instance.ListOfRoutes.Values.ToList();
         }
 
         public void SortOffersInRoutesByPriceAscending()
@@ -47,8 +49,11 @@ namespace FynbusProject
         }
 
         // Main method called for calculating winners
-        public List<Route> GetWinners()
+        public void CalculateWinners()
         {
+            //Overwrites local list with routes with imported list of routes and clears the list where winners has been found
+            LoadRoutes();
+            _resolvedRoutesList.Clear();
             // Sorts the collection of offers on each route by price ascending
             SortOffersInRoutesByPriceAscending();
             // sort routes by the price difference
@@ -64,11 +69,9 @@ namespace FynbusProject
                 {
                     SetWinnerForRoute(currentRoute);
                     _resolvedRoutesList.Add(currentRoute);
-
                 }
                 else
                 {
-                    Console.WriteLine("No vehicles left " + currentRoute.ListOfOffers[0].OfferContractor + " for route: #" + currentRoute.RouteNumber);
                     SortOffersInRoutesByPriceAscending();
                     SortRoutesByTotalContractValueDifference();
                     routeIndex = 0;
@@ -83,7 +86,10 @@ namespace FynbusProject
                     routeIndex++;
                 }
             }
+        }
 
+        public List<Route> GetWinners()
+        {
             return _resolvedRoutesList.OrderBy(r => r.RouteNumber).ToList();
         }
 

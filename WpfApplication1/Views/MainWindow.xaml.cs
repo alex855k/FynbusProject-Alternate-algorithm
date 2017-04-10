@@ -2,6 +2,8 @@
 using FynbusProject;
 using Microsoft.Win32;
 using System;
+using WPF_GUI.Models;
+using WPF_GUI.ViewModels;
 
 namespace GUI
 {
@@ -13,6 +15,7 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void button_Clear_Click(object sender, RoutedEventArgs e)
