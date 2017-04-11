@@ -1,4 +1,5 @@
-﻿using FynbusProject;
+﻿using System.Collections.Generic;
+using FynbusProject;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FynbusTests
@@ -26,8 +27,8 @@ namespace FynbusTests
             double price = 250; 
 
             Route r = new Route(1, 2,avaliabilityPeriodWeekDays,avaliabilityPeriodWeekends,avaliabilityPeriodHolidays);
-            Offer o = new Offer("Jan-1", r, price, contractor, 10);
-
+        
+            r.ListOfOffers.Add(new Offer("Jan-1", r, price, contractor, 10));
             
             // *** Fixed values for routes ***
 
@@ -54,7 +55,6 @@ namespace FynbusTests
 
             // Total contract value 
             Assert.AreEqual(r.ListOfOffers[0].ContractValue, totalContractValue);
-
         }
 
         [TestMethod]
@@ -116,25 +116,29 @@ namespace FynbusTests
             Contractor contractor = new Contractor("jan-1", "Company 1", "Eddie Murphy", "Eddie@gmail.com", 1, 2, 2, 3, 4);
             Contractor contractor2 = new Contractor("jan-1", "Company2", "Scarlet Johanson", "scarlet@gmail.com", 1, 2, 2, 1, 4);
 
-            Route r = new Route(1, 2,1,5,7);
-            Route r2 = new Route(2, 3,1,5,7);
-            Route r3 = new Route(2, 3,1,5,7);
+            Route r = new Route(1, 2,8,6,0);
+            Route r2 = new Route(2, 3,5,2,0);
+            Route r3 = new Route(3, 3,6,5,7);
 
             // Offers for route one
-            r.ListOfOffers.Add(new Offer("Jan-1", r, 250, contractor, 1));
-            r.ListOfOffers.Add(new Offer("Jan-2", r, 250, contractor2, 0));
+            r.ListOfOffers.Add(new Offer("Jan-1", r, 100, contractor, 1));
+            r.ListOfOffers.Add(new Offer("Jan-2", r, 150, contractor2, 0));
             // Offers for route two
-            r2.ListOfOffers.Add(new Offer("Jan-3", r2, 250, contractor, 1));
-            r2.ListOfOffers.Add(new Offer("Jan-4", r2, 250, contractor2, 1));
+            r2.ListOfOffers.Add(new Offer("Jan-3", r2, 200, contractor, 1));
+            r2.ListOfOffers.Add(new Offer("Jan-4", r2, 280, contractor2, 1));
             // Offers for route three
+            r3.ListOfOffers.Add(new Offer("Jan-5", r3, 150, contractor, 1));
+            r3.ListOfOffers.Add(new Offer("Jan-6", r3, 210, contractor2, 1));
 
-            r3.ListOfOffers.Add(new Offer("Jan-5", r3, 250, contractor, 1));
-            r3.ListOfOffers.Add(new Offer("Jan-6", r3, 250, contractor, 1));
+            // Add routes to list with routes
+            calculateWinner.AddToRouteList(r);
+            calculateWinner.AddToRouteList(r2);
+            calculateWinner.AddToRouteList(r3);
 
+            calculateWinner.SortRoutesByTotalContractValueDifference();
 
-            calculateWinner.SortOffersInRoutesByPriceAscending();
             //assert that wrong route is first in unsorted list
-            Assert.AreEqual(o.Id, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Id);
+            Assert.AreEqual(r.RouteNumber, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Id);
 
             //assert that right route is first in sorted list
             calculateWinner.SortOffersInRoutesByPriceAscending();

@@ -5,8 +5,6 @@ namespace FynbusProject
 {
     public class Route
     {
-        // Contract period in years
-        private int _contractPeriod = 2;
         public int RouteNumber { get; private set; }
         public int VehicleType { get; private set; }
         public int RoutePriority { get; set; }
@@ -16,10 +14,10 @@ namespace FynbusProject
         public int AvaliabilityPeriodWeekends { get; set; }
         //Amount of hours that the flex vehicle is avaliable during a day that's a holiday
         public int AvaliabilityPeriodHolidays { get; set; }
-        // Amount of days for the contract period
-        private int _amountOfHolidays;
-        private int _amountOfWeekDays;
-        private int _amountOfWeekendsDays;
+        // Amount of days of the different type of days over the year x contract period in year
+        private static int _amountOfHolidays = 14 * 2;
+        private static int _amountOfWeekDays = 261 * 2;
+        private static int _amountOfWeekendsDays = 72 * 2;
 
         public int AmountOfHoursContractPeriod()
         {
@@ -33,8 +31,9 @@ namespace FynbusProject
         public Offer WinningOffer { get; set; }
 
         public List<Offer> ListOfOffers { get; private set; }
-
-        private Offer _noWinnerOffer;
+        
+        // Incase a route has no winners this is inserted as the winning route, it's static because we just need the one object and not a unique one for each route that doesn't have a winner.
+        private static Offer _noWinnerOffer;
 
         public Route(int routeNb, int vehType, int hoursWeekdays, int hoursWeekends, int hoursHolidays)
         {
@@ -46,11 +45,7 @@ namespace FynbusProject
             AvaliabilityPeriodWeekDays = hoursWeekdays;
             AvaliabilityPeriodWeekends = hoursWeekends;
 
-            _amountOfHolidays = 14 * _contractPeriod;
-            _amountOfWeekDays = 261 * _contractPeriod;
-            _amountOfWeekendsDays =  72 * _contractPeriod;
-
-            _noWinnerOffer = new Offer("", this, 0, new Contractor("", "No winner", "", "", 0, 0, 0, 0, 0), 0);
+            if(_noWinnerOffer == null) _noWinnerOffer = new Offer("", this, 0, new Contractor("", "No winner", "", "", 0, 0, 0, 0, 0), 0);
         }
 
         public bool HasWinner()

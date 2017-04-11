@@ -6,7 +6,9 @@ namespace FynbusProject
 {
     public class CalculateWinner
     {
+        // List with routes where winners haven't been found
         private List<Route> _routesList;
+        // List with routes where winners have been found
         private List<Route> _resolvedRoutesList;
 
         public CalculateWinner()
