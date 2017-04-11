@@ -25,6 +25,7 @@
                 <GridView x:Name="grdTest">
                     <GridViewColumn Header="UserId" DisplayMemberBinding="{Binding RouteNumber}"  Width="50"/>
                     <GridViewColumn Header="First Name" DisplayMemberBinding="{Binding CompanyName}"  Width="80" />
+                    <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding Price}" Width="100" />
                     <GridViewColumn Header="Last Name" DisplayMemberBinding="{Binding TotalContractValue}" Width="100" />
                 </GridView>
             </ListView.View>

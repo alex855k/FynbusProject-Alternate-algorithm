@@ -45,7 +45,7 @@ namespace WPF_GUI.ViewModels
          
             foreach (Route route in _winningRoutes)
             {
-                _winningOffers.Add(new WinningOfferModel(route.RouteNumber, route.WinningOffer.OfferContractor.CompanyName, route.WinningOffer.ContractValue));
+                _winningOffers.Add(new WinningOfferModel(route.RouteNumber, route.WinningOffer.OfferContractor.CompanyName, route.WinningOffer.Price, route.WinningOffer.ContractValue));
             }
         }
     }

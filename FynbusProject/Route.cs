@@ -10,6 +10,7 @@ namespace FynbusProject
         public int RouteNumber { get; private set; }
         public int VehicleType { get; private set; }
         public int RoutePriority { get; set; }
+        //Amount of hours that the flex vehicle is avaliable during a normal week day
         public int AvaliabilityPeriodWeekDays { get; set; }
         //Amount of hours that the flex vehicle is avaliable during a day in the weekend 
         public int AvaliabilityPeriodWeekends { get; set; }
@@ -40,12 +41,15 @@ namespace FynbusProject
             RouteNumber = routeNb;
             VehicleType = vehType;
             ListOfOffers = new List<Offer>();
+
             AvaliabilityPeriodHolidays = hoursHolidays;
             AvaliabilityPeriodWeekDays = hoursWeekdays;
             AvaliabilityPeriodWeekends = hoursWeekends;
+
             _amountOfHolidays = 14 * _contractPeriod;
             _amountOfWeekDays = 261 * _contractPeriod;
-            _amountOfWeekendsDays = 100 * _contractPeriod;
+            _amountOfWeekendsDays =  72 * _contractPeriod;
+
             _noWinnerOffer = new Offer("", this, 0, new Contractor("", "No winner", "", "", 0, 0, 0, 0, 0), 0);
         }
 
@@ -74,7 +78,7 @@ namespace FynbusProject
                 diff = ListOfOffers[1].ContractValue -
                        ListOfOffers[0].ContractValue;
             }
-            // Uncomment this if you want to prioritize list of offer
+            // Uncomment this if you want to prioritize list of offer with just one offer left
             /*if (ListOfOffers.Count == 1)
             {
                 diff = 10000000000000000000;

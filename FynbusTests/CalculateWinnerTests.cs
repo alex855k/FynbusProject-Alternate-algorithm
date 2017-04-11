@@ -7,39 +7,88 @@ namespace FynbusTests
     public class CalculateWinnerTests
     {
 
-        private CalculateWinner cw;
-        private Route testRoute;
-
         [TestInitialize]
         public void Initialize()
         {
 
         }
-        //Unit Tests
-
-        //[TestMethod]
-        //public void CanGetDifferenceOnFirstAndSecondOffers()
-        //{
-        //    Contractor contractor = new Contractor("jan-1", "dasdad", "Thomas Hvidt", "sadad@gadas.com", 1, 2, 2, 3, 4);
-        //    Route r = new Route(1, 1);
-        //    Offer o = new Offer("Jan-1", r, 250, contractor, 10);
-        //    Contractor contractor2 = new Contractor("jan-1", "dasdad", "Thomas Hvidt", "sadad@gadas.com", 1, 2, 2, 1, 4);
-        //    Offer o2 = new Offer("Jan-1", r, 300, contractor, 10);
-        //    r.AddToList(o);
-        //    r.AddToList(o2);
-        //    Assert.AreEqual(r.GetTotalContractValueDifference(), 50);
-        //}
-
-
 
         [TestMethod]
-        public void CanSortRouteByPriceAscending()
+        public void CalculateTotalContractValue()
+        {
+            Contractor contractor = new Contractor("jan-1", "Company 1", "Eddie Murphy", "Eddie@gmail.com", 1, 2, 2, 3, 4);
+
+            // Fixed vehicles avaliability in hours on a single day for each of the type of days           
+            int avaliabilityPeriodWeekDays = 2;
+            int avaliabilityPeriodHolidays = 8;
+            int avaliabilityPeriodWeekends = 0;
+
+            double price = 250; 
+
+            Route r = new Route(1, 2,avaliabilityPeriodWeekDays,avaliabilityPeriodWeekends,avaliabilityPeriodHolidays);
+            Offer o = new Offer("Jan-1", r, price, contractor, 10);
+
+            
+            // *** Fixed values for routes ***
+
+            //Contract period in years
+            int contractPeriod = 2;
+
+            // Amount of days for each category over the contractperiod
+            int amountOfHolidays = 14 * contractPeriod;
+            int amountOfWeekDays = 261 * contractPeriod;
+            int amountOfWeekendsDays = 72 * contractPeriod;
+
+            // Calculating the total amount of hours
+            int totalAmountOfHours = (avaliabilityPeriodWeekDays * amountOfWeekDays) +
+                (avaliabilityPeriodHolidays * amountOfHolidays) +
+                (avaliabilityPeriodWeekends * amountOfWeekendsDays);
+
+            // Calculating the total contract value
+            double totalContractValue = totalAmountOfHours * price;
+
+            //Assertions
+
+            // Hours 
+            Assert.AreEqual(totalAmountOfHours, r.AmountOfHoursContractPeriod());
+
+            // Total contract value 
+            Assert.AreEqual(r.ListOfOffers[0].ContractValue, totalContractValue);
+
+        }
+
+        [TestMethod]
+        public void CalculateTotalContractValueDifferenceOnFirstAndSecondOffers()
+        {
+            Contractor contractor = new Contractor("jan-1", "Company 1", "Eddie Murphy", "Eddie@gmail.com", 1, 2, 2, 3, 4);
+            Route r = new Route(1, 2, 3, 5, 2);
+            Offer o = new Offer("Jan-1", r, 250, contractor, 10);
+            Contractor contractor2 = new Contractor("jan-2", "Company2", "Scarlet Johanson", "scarlet@gmail.com", 1, 2, 2, 1, 4);
+       
+            Offer o2 = new Offer("Jan-2", r, 300, contractor2, 10);
+
+            //Assertions
+
+            // If route has no offers will return 0
+            Assert.AreEqual(r.GetTotalContractValueDifference(), 0);
+
+            // If route has one offers will return 0
+            r.AddToList(o);
+            Assert.AreEqual(r.GetTotalContractValueDifference(), 0);
+
+            // Will return true if difference is 50 between the 2 first offers in the list
+            r.AddToList(o2);
+            Assert.AreEqual(r.GetTotalContractValueDifference(), 50);
+        }
+
+        [TestMethod]
+        public void SortOffersByPriceAscending()
         {
             CalculateWinner calculateWinner = new CalculateWinner();
-            Contractor contractor = new Contractor("jan-1", "Datguy", "Firstguy", "sadad@gadas.com", 1, 2, 2, 3, 4);
-            Route r = new Route(1, 2);
+            Contractor contractor = new Contractor("jan-1", "Company 1", "Eddie Murphy", "Eddie@gmail.com", 1, 2, 2, 3, 4);
+            Route r = new Route(1, 2, 2,8,0);
             Offer o = new Offer("Jan-1", r, 250, contractor, 10);
-            Contractor contractor2 = new Contractor("jan-1", "Datotherguy", "Otherguy", "otherguy@live.com", 1, 2, 2, 1, 4);
+            Contractor contractor2 = new Contractor("jan-1", "Company2", "Scarlet Johanson", "scarlet@gmail.com", 1, 2, 2, 1, 4);
             Offer o2 = new Offer("Jan-1", r, 300, contractor2, 10);
             Offer o3 = new Offer("Jan-1", r, 30, contractor, 10);
 
@@ -58,57 +107,30 @@ namespace FynbusTests
             Assert.AreEqual(o3.Price, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Price);
         }
 
-        //[TestMethod]
-        //public void CanSortRouteByHighestDifferenceAscending2()
-        //{
-        //    CalculateWinner calculateWinner = new CalculateWinner();
-        //    Contractor contractor = new Contractor("jan-1", "Datguy", "Firstguy", "sadad@gadas.com", 1, 2, 2, 3, 4);
-        //    Route r = new Route(1, 2);
-        //    Offer o = new Offer("Jan-1", r, 250, contractor, 10);
-        //    Contractor contractor2 = new Contractor("jan-1", "Datotherguy", "Otherguy", "otherguy@live.com", 1, 2, 2, 1, 4);
-        //    Offer o2 = new Offer("Jan-1", r, 300, contractor2, 10);
-        //    Offer o3 = new Offer("Jan-1", r, 30, contractor, 10);
-        //    Offer o4 = new Offer("Jan-1", r, 270, contractor2, 10);
-        //    r.AddToList(o);
-        //    r.AddToList(o2);
-        //    Route r2 = new Route(2, 2);
-        //    r2.AddToList(o3);
-        //    r2.AddToList(o4);
-        //    // add to calculatewinner
-        //    calculateWinner.AddToRouteList(r);
-        //    calculateWinner.AddToRouteList(r2);
+ 
 
-        //    calculateWinner.SortOffersInRoutesByPriceAscending();
-        //    //assert that wrong route is first in unsorted list
-        //    Assert.AreEqual(r.RouteNumber, calculateWinner.GetRouteInIndex(0).RouteNumber);
-
-        //    //assert that right route is first in sorted list
-        //    calculateWinner.SortRoutesByTotalContractValueDifference();
-        //    Assert.AreEqual(r2.RouteNumber, calculateWinner.GetRouteInIndex(0).RouteNumber);
-        //}
-
-        public void CanSorByPriorityOnSamePrice()
+        public void SortRoutesByTotalContractValueDifference()
         {
             CalculateWinner calculateWinner = new CalculateWinner();
 
-            Contractor contractor = new Contractor("jan-1", "Datguy", "Firstguy", "sadad@gadas.com", 1, 2, 2, 3, 4);
-            Contractor contractor2 = new Contractor("jan-1", "Datotherguy", "Otherguy", "otherguy@live.com", 1, 2, 2, 1, 4);
+            Contractor contractor = new Contractor("jan-1", "Company 1", "Eddie Murphy", "Eddie@gmail.com", 1, 2, 2, 3, 4);
+            Contractor contractor2 = new Contractor("jan-1", "Company2", "Scarlet Johanson", "scarlet@gmail.com", 1, 2, 2, 1, 4);
 
+            Route r = new Route(1, 2,1,5,7);
+            Route r2 = new Route(2, 3,1,5,7);
+            Route r3 = new Route(2, 3,1,5,7);
 
-            // Route r = new Route(1, 2);
+            // Offers for route one
+            r.ListOfOffers.Add(new Offer("Jan-1", r, 250, contractor, 1));
+            r.ListOfOffers.Add(new Offer("Jan-2", r, 250, contractor2, 0));
+            // Offers for route two
+            r2.ListOfOffers.Add(new Offer("Jan-3", r2, 250, contractor, 1));
+            r2.ListOfOffers.Add(new Offer("Jan-4", r2, 250, contractor2, 1));
+            // Offers for route three
 
-            Offer o = new Offer("Jan-1", r, 250, contractor, 1);
-            Offer o2 = new Offer("Jan-2", r, 250, contractor2, 0);
-            Offer o3 = new Offer("Jan-3", r, 300, contractor, 3);
-            Offer o4 = new Offer("Jan-4", r, 300, contractor2, 0);
+            r3.ListOfOffers.Add(new Offer("Jan-5", r3, 250, contractor, 1));
+            r3.ListOfOffers.Add(new Offer("Jan-6", r3, 250, contractor, 1));
 
-            r.AddToList(o);
-            r.AddToList(o2);
-            r.AddToList(o3);
-            r.AddToList(o4);
-
-            // add to calculatewinner
-            calculateWinner.AddToRouteList(r);
 
             calculateWinner.SortOffersInRoutesByPriceAscending();
             //assert that wrong route is first in unsorted list
@@ -129,29 +151,9 @@ namespace FynbusTests
         public void CanCalculateWinner()
         {
             CalculateWinner calculateWinner = new CalculateWinner();
+
+            calculateWinner.CalculateWinners();
+            calculateWinner.GetWinners();
         }
-
-
-        [TestMethod]
-        public void CanGetAvaliableHoursForRoute()
-        {
-            AvaliableHours av = AvaliableHours.Instance;
-            RouteAvaliableHours routeAvHour = new RouteAvaliableHours();
-
-
-            Assert.AreEqual(4698, av.GetAvaliableHours(1));
-            Assert.AreEqual(7742, av.GetAvaliableHours(2));
-        }
-
-        [TestMethod]
-        public void CanGetTotalContractValue()
-        {
-            Contractor contractor = new Contractor("jan-1", "dasdad", "Thomas Hvidt", "sadad@gadas.com", 1, 2, 2, 3, 4);
-            Route r = new Route(1, 1);
-            Offer o = new Offer("Jan-1", r, 250, contractor, 10);
-            AvaliableHours av = AvaliableHours.Instance;
-            Assert.AreEqual(4698 * o.Price, o.ContractValue);
-        }
-
     }
 }
