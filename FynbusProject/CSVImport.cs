@@ -126,23 +126,6 @@ namespace FynbusProject
             return isRouteData;
         }
 
-        public void PrintRoutes()
-        {
-            foreach (KeyValuePair<int, Route> r in ListOfRoutes)
-            {
-                Console.WriteLine(r.Value.RouteNumber + "" + r.Value.VehicleType);
-            }
-
-        }
-
-        public void PrintContractors()
-        {
-            foreach (KeyValuePair<string, Contractor> r in ListOfContractors)
-            {
-                Console.WriteLine(r.Key + " " + r.Value.PersonName);
-            }
-        }
-
         private bool ImportContractor(string filepath)
         {
             bool isContractorData = false;
