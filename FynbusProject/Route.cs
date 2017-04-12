@@ -92,7 +92,7 @@ namespace FynbusProject
 
         public override string ToString()
         {
-            return RouteNumber + " " + VehicleType;
+            return RouteNumber + " " + VehicleType + " " + AvaliabilityPeriodWeekDays + " " + AvaliabilityPeriodWeekends + " " + AvaliabilityPeriodHolidays;
         }
 
         public void SetWinningOffer()

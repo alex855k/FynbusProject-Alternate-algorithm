@@ -16,8 +16,7 @@ namespace FynbusProject
         private string _filePathRoutes;
         private string _filePathContractors;
         private string _filePathOffers;
-        public List<Offer> ListOfOffers
-        { get; private set; }
+        public List<Offer> ListOfOffers { get; private set; }
         public Dictionary<string, Contractor> ListOfContractors { get; private set; }
         public Dictionary<int, Route> ListOfRoutes { get; private set; }
 
@@ -88,7 +87,7 @@ namespace FynbusProject
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
 
 
-            //Check if this are 2 colums for the Route
+            //Check if these are 5 columns for the Route
             if (data[0].Split(';').Length == 5)
             {
                 isRouteData = true;
@@ -151,7 +150,7 @@ namespace FynbusProject
             //Get all the info from the CSV file
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
 
-            //Check if this is a header for the Contractor
+            //Check if these are columns for the Contractor
             if (data[0].Split(';').Length == 9)
             {
                 isContractorData = true;
@@ -162,7 +161,7 @@ namespace FynbusProject
                 for (int i = 1; i < data.Length; i++)
                 {
                     string row = data[i];
-                    //Get every collumn in that row
+                    //Get every column in that row
                     string[] collumns = row.Split(';');
 
                     string number = collumns[0];
@@ -196,7 +195,7 @@ namespace FynbusProject
             //Get all the info from the CSV file
             string[] data = File.ReadAllLines(filepath, Encoding.GetEncoding("iso-8859-1"));
           
-            //Check if there are 8 columes for the Offers
+            //Check if there are 8 columns for the Offers
             if (data[0].Split(';').Length == 8)
             {
                 isOfferData = true;
@@ -208,7 +207,7 @@ namespace FynbusProject
                 for (int i = 1; i < data.Length; i++)
                 {
                     string row = data[i];
-                    //Get every collumn in that row
+                    //Get every column in that row
                     string[] collumns = row.Split(';');
 
 
