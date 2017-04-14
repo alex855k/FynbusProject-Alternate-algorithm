@@ -17,14 +17,13 @@ namespace FynbusProject
         {
             cw = calculateWinner;
             numberOfRows = numRows;
+            listOfWinners = cw.GetWinners();
         }
 
 
 
         public void ExportToPDF(string path)
         {
-            listOfWinners = cw.GetWinners();
-
             try
             {
                 FileStream fs = new FileStream(path, FileMode.Create);
@@ -69,8 +68,6 @@ namespace FynbusProject
 
         public void ExportToCSV(string path)
         {
-            listOfWinners = cw.GetWinners();
-
             StringBuilder csvContent = PrepareCsvContent();
 
             try
@@ -88,7 +85,7 @@ namespace FynbusProject
         {
             StringBuilder csvContent = new StringBuilder();
 
-            csvContent.AppendLine("Route number,Company name,Contact person,Contract value");
+            csvContent.AppendLine("Route number;Company name;Contact person;Contract value");
 
             foreach (Route r in listOfWinners)
             {
@@ -99,7 +96,7 @@ namespace FynbusProject
                     string personName = r.WinningOffer.OfferContractor.PersonName;
                     string contractValue = r.WinningOffer.ContractValue.ToString();
 
-                    string newLine = string.Format("{0},{1},{2},{3}", routeNr, compName, personName, contractValue);
+                    string newLine = string.Format("{0};{1};{2};{3}", routeNr, compName, personName, contractValue);
 
                     csvContent.AppendLine(newLine);
                 }
