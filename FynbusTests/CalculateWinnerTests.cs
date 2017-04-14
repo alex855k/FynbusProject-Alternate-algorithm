@@ -66,6 +66,11 @@ namespace FynbusTests
             Contractor contractor2 = new Contractor("jan-2", "Company2", "Scarlet Johanson", "scarlet@gmail.com", 1, 2, 2, 1, 4);
        
             Offer o2 = new Offer("Jan-2", r, 300, contractor2, 10);
+            r.ListOfOffers.Add(o);
+            r.ListOfOffers.Add(o2);
+
+            // contract value difference
+            double routeValueDifference = r.ListOfOffers[1].ContractValue - r.ListOfOffers[0].ContractValue;
 
             //Assertions
 
@@ -78,7 +83,7 @@ namespace FynbusTests
 
             // Will return true if difference is 50 between the 2 first offers in the list
             r.AddToList(o2);
-            Assert.AreEqual(r.GetTotalContractValueDifference(), 50);
+            Assert.AreEqual(r.GetTotalContractValueDifference(), routeValueDifference);
         }
 
         [TestMethod]
@@ -96,7 +101,7 @@ namespace FynbusTests
             r.AddToList(o2);
             r.AddToList(o3);
 
-            // add to calculatewinner
+            // Add to calculatewinner
             calculateWinner.AddToRouteList(r);
 
             //assert that wrong route is first in unsorted list
@@ -135,6 +140,7 @@ namespace FynbusTests
             calculateWinner.AddToRouteList(r2);
             calculateWinner.AddToRouteList(r3);
 
+            // Calculate total contract value of 1st and 2nd offers in each route
             calculateWinner.SortRoutesByTotalContractValueDifference();
 
             //assert that wrong route is first in unsorted list
@@ -142,8 +148,8 @@ namespace FynbusTests
 
             //assert that right route is first in sorted list
             calculateWinner.SortOffersInRoutesByPriceAscending();
-            Assert.AreEqual(o2.Id, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Id);
-            Assert.AreEqual(o.Id, calculateWinner.GetRouteInIndex(0).ListOfOffers[1].Id);
+            Assert.AreEqual(calculateWinner, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Id);
+            Assert.AreEqual(, calculateWinner.GetRouteInIndex(0).ListOfOffers[1].Id);
 
             Assert.AreEqual(o4.Id, calculateWinner.GetRouteInIndex(0).ListOfOffers[2].Id);
             Assert.AreEqual(o3.Id, calculateWinner.GetRouteInIndex(0).ListOfOffers[3].Id);

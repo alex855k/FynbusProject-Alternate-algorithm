@@ -44,7 +44,7 @@ namespace FynbusProject
             AvaliabilityPeriodHolidays = hoursHolidays;
             AvaliabilityPeriodWeekDays = hoursWeekdays;
             AvaliabilityPeriodWeekends = hoursWeekends;
-
+           
             if(_noWinnerOffer == null) _noWinnerOffer = new Offer("", this, 0, new Contractor("", "No winner", "", "", 0, 0, 0, 0, 0), 0);
         }
 

@@ -26,6 +26,8 @@ namespace FynbusProject
 
         public void SortOffersInRoutesByPriceAscending()
         {
+           
+
             foreach (Route r in _routesList)
             {
                 r.SortListOfOffers();
@@ -45,7 +47,7 @@ namespace FynbusProject
 
         public void SortRoutesByTotalContractValueDifference()
         {
-            List<Route> sortedRoutesList = _routesList.FindAll(r => r.HasWinner() == false).OrderByDescending(r => r.GetTotalContractValueDifference()).ThenBy(r => r.RoutePriority).ToList();
+            List<Route> sortedRoutesList = _routesList.OrderByDescending(r => r.GetTotalContractValueDifference()).ThenBy(r => r.RoutePriority).ToList();
             //Updating the RoutesList with sorted values
             _routesList = sortedRoutesList;
         }
@@ -70,7 +72,9 @@ namespace FynbusProject
                 if (currentRoute.FirstOfferHasVehicleLeft() || currentRoute.ListOfOffers.Count <= 0)
                 {
                     SetWinnerForRoute(currentRoute);
+                    // Removes the route with the winner from the routes list and it's being placed in the list with the routes that has been processed
                     _resolvedRoutesList.Add(currentRoute);
+                    _routesList = _routesList.FindAll(r => r.HasWinner() == false);
                 }
                 else
                 {
