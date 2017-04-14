@@ -89,7 +89,7 @@ namespace FynbusTests
         [TestMethod]
         public void SortOffersByPriceAscending()
         {
-            CalculateWinner calculateWinner = new CalculateWinner();
+          
             Contractor contractor = new Contractor("jan-1", "Company 1", "Eddie Murphy", "Eddie@gmail.com", 1, 2, 2, 3, 4);
             Route r = new Route(1, 2, 2,8,0);
             Offer o = new Offer("Jan-1", r, 250, contractor, 10);
@@ -102,21 +102,20 @@ namespace FynbusTests
             r.AddToList(o3);
 
             // Add to calculatewinner
-            calculateWinner.AddToRouteList(r);
+            CalculateWinner.Instance.AddToRouteList(r);
 
             //assert that wrong route is first in unsorted list
-            Assert.AreEqual(o.Price, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Price);
+            Assert.AreEqual(o.Price, CalculateWinner.Instance.GetRouteInIndex(0).ListOfOffers[0].Price);
 
             //assert that right route is first in sorted list
-            calculateWinner.SortOffersInRoutesByPriceAscending();
-            Assert.AreEqual(o3.Price, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Price);
+            CalculateWinner.Instance.SortOffersInRoutesByPriceAscending();
+            Assert.AreEqual(o3.Price, CalculateWinner.Instance.GetRouteInIndex(0).ListOfOffers[0].Price);
         }
 
  
 
         public void SortRoutesByTotalContractValueDifference()
         {
-            CalculateWinner calculateWinner = new CalculateWinner();
 
             Contractor contractor = new Contractor("jan-1", "Company 1", "Eddie Murphy", "Eddie@gmail.com", 1, 2, 2, 3, 4);
             Contractor contractor2 = new Contractor("jan-1", "Company2", "Scarlet Johanson", "scarlet@gmail.com", 1, 2, 2, 1, 4);
@@ -136,23 +135,19 @@ namespace FynbusTests
             r3.ListOfOffers.Add(new Offer("Jan-6", r3, 210, contractor2, 1));
 
             // Add routes to list with routes
-            calculateWinner.AddToRouteList(r);
-            calculateWinner.AddToRouteList(r2);
-            calculateWinner.AddToRouteList(r3);
+            CalculateWinner.Instance.AddToRouteList(r);
+            CalculateWinner.Instance.AddToRouteList(r2);
+            CalculateWinner.Instance.AddToRouteList(r3);
 
             // Calculate total contract value of 1st and 2nd offers in each route
-            calculateWinner.SortRoutesByTotalContractValueDifference();
+            CalculateWinner.Instance.SortRoutesByTotalContractValueDifference();
 
             //assert that wrong route is first in unsorted list
-            Assert.AreEqual(r.RouteNumber, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Id);
+            Assert.AreEqual(r.RouteNumber, CalculateWinner.Instance.GetRouteInIndex(0).ListOfOffers[0].Id);
 
             //assert that right route is first in sorted list
-            calculateWinner.SortOffersInRoutesByPriceAscending();
-            Assert.AreEqual(calculateWinner, calculateWinner.GetRouteInIndex(0).ListOfOffers[0].Id);
-            Assert.AreEqual(, calculateWinner.GetRouteInIndex(0).ListOfOffers[1].Id);
-
-            Assert.AreEqual(o4.Id, calculateWinner.GetRouteInIndex(0).ListOfOffers[2].Id);
-            Assert.AreEqual(o3.Id, calculateWinner.GetRouteInIndex(0).ListOfOffers[3].Id);
+            CalculateWinner.Instance.SortOffersInRoutesByPriceAscending();
+        
         }
 
 
@@ -160,10 +155,8 @@ namespace FynbusTests
         [TestMethod]
         public void CanCalculateWinner()
         {
-            CalculateWinner calculateWinner = new CalculateWinner();
-
-            calculateWinner.CalculateWinners();
-            calculateWinner.GetWinners();
+            CalculateWinner.Instance.CalculateWinners();
+            CalculateWinner.Instance.GetWinners();
         }
     }
 }

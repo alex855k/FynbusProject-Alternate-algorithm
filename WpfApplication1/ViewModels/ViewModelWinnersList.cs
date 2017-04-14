@@ -12,7 +12,7 @@ namespace WPF_GUI.ViewModels
 {
     public class ViewModelWinnersList
     {
-        private CalculateWinner _cw = new CalculateWinner();
+        private CalculateWinner _cw = CalculateWinner.Instance;
         private List<Route> _winningRoutes;
 
         private ICommand _updateCommand;

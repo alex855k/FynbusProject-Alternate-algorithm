@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 
 namespace FynbusProject
@@ -10,13 +11,27 @@ namespace FynbusProject
         private List<Route> _routesList;
         // List with routes where winners have been found
         private List<Route> _resolvedRoutesList;
+        private static CalculateWinner instance;
 
-        public CalculateWinner()
+        private CalculateWinner()
         {
             // Adding route objects from the import class in the RoutesList
             _routesList = new List<Route>();
             _resolvedRoutesList = new List<Route>();
         }
+
+        public static CalculateWinner Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new CalculateWinner();
+                }
+                return instance;
+            }
+        }
+
 
         public void LoadRoutes()
         {
@@ -26,8 +41,8 @@ namespace FynbusProject
 
         public void SortOffersInRoutesByPriceAscending()
         {
-           
-
+            // Route that has been processed is being excluded from list
+            _routesList = _routesList.FindAll(r => r.HasWinner() == false);
             foreach (Route r in _routesList)
             {
                 r.SortListOfOffers();
@@ -72,9 +87,8 @@ namespace FynbusProject
                 if (currentRoute.FirstOfferHasVehicleLeft() || currentRoute.ListOfOffers.Count <= 0)
                 {
                     SetWinnerForRoute(currentRoute);
-                    // Removes the route with the winner from the routes list and it's being placed in the list with the routes that has been processed
+                    // the route is being placed in the list with the routes that has been processed
                     _resolvedRoutesList.Add(currentRoute);
-                    _routesList = _routesList.FindAll(r => r.HasWinner() == false);
                 }
                 else
                 {

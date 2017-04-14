@@ -12,6 +12,9 @@ namespace GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private CalculateWinner cw = CalculateWinner.Instance;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -100,8 +103,7 @@ namespace GUI
         }
         private void button_ExportPdf_Click(object sender, RoutedEventArgs e)
         {
-            CalculateWinner cw = new CalculateWinner();
-            cw.CalculateWinners();
+            
             cw.GetWinners();
 
             Export exp = new Export(cw, 4);
@@ -117,7 +119,6 @@ namespace GUI
 
         private void button_ExportCsv_Click(object sender, RoutedEventArgs e)
         {
-            CalculateWinner cw = new CalculateWinner();
             cw.CalculateWinners();
             cw.GetWinners();
 

@@ -33,12 +33,10 @@ namespace FynbusProject
             //CSVImport.Instance.PrintRoutes();
             Console.WriteLine(CSVImport.Instance.ListOfRoutes[1].ListOfOffers.Count);
 
-            CalculateWinner cw = new CalculateWinner();
-
             Console.WriteLine(CSVImport.Instance.ListOfOffers.Count);
-            cw.CalculateWinners();
-            cw.CalculateWinners();
-            List<Route> WinnersList = cw.GetWinners();
+            CalculateWinner.Instance.CalculateWinners();
+            CalculateWinner.Instance.CalculateWinners();
+            List<Route> WinnersList = CalculateWinner.Instance.GetWinners();
             //Console.WriteLine(WinnersList.Count);
 
             foreach (Route r in WinnersList)
